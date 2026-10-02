@@ -27,6 +27,23 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    char *hello = "hello";
+    if (send(sock, hello, strlen(hello), 0) < 0) {
+        perror("send");
+        close(sock);
+        return 1;
+    }
+
+    char buf[BUF_SIZE];
+    int n = recv(sock, buf, BUF_SIZE - 1, 0);
+    if (n < 0) {
+        perror("recv");
+        close(sock);
+        return 1;
+    }
+
+    buf[n] = '\0'
+
     printf("Host: %s\n", host);
     printf("Port: %d\n", port);
 
